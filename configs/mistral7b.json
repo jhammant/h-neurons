@@ -1,0 +1,10 @@
+{
+  "model": "mistralai/Mistral-7B-Instruct-v0.3",
+  "quantize": "4bit",
+  "device": "mps",
+  "samples": 200,
+  "responses_per_question": 8,
+  "temperature": 0.9,
+  "max_new_tokens": 100,
+  "classifier_C": 0.01
+}

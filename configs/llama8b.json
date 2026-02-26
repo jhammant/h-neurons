@@ -1,0 +1,12 @@
+{
+  "model": "meta-llama/Llama-3.1-8B-Instruct",
+  "quantize": "4bit",
+  "device": "mps",
+  "samples": 200,
+  "responses_per_question": 8,
+  "temperature": 0.9,
+  "max_new_tokens": 100,
+  "classifier_C": 0.01,
+  "intervention_scale_suppress": 0.0,
+  "intervention_scale_amplify": 2.0
+}

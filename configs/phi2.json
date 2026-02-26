@@ -1,0 +1,10 @@
+{
+  "model": "microsoft/phi-2",
+  "quantize": "none",
+  "device": "mps",
+  "samples": 150,
+  "responses_per_question": 8,
+  "temperature": 0.9,
+  "max_new_tokens": 80,
+  "classifier_C": 0.02
+}

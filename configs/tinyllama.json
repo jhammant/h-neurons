@@ -1,0 +1,11 @@
+{
+  "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+  "quantize": "none",
+  "device": "cpu",
+  "samples": 40,
+  "responses_per_question": 6,
+  "temperature": 0.9,
+  "max_new_tokens": 30,
+  "classifier_C": 0.05,
+  "target_examples": 100
+}
