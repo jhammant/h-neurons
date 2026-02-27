@@ -1,0 +1,117 @@
+{
+  "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+  "total_neurons": 123904,
+  "h_neuron_count": 27,
+  "h_neuron_ratio": 0.00021791064049586777,
+  "classifier_accuracy": 0.85,
+  "neurons": [
+    {
+      "layer": 1,
+      "position": 1915
+    },
+    {
+      "layer": 1,
+      "position": 2366
+    },
+    {
+      "layer": 4,
+      "position": 3792
+    },
+    {
+      "layer": 6,
+      "position": 728
+    },
+    {
+      "layer": 6,
+      "position": 1859
+    },
+    {
+      "layer": 7,
+      "position": 3581
+    },
+    {
+      "layer": 8,
+      "position": 2111
+    },
+    {
+      "layer": 8,
+      "position": 2595
+    },
+    {
+      "layer": 9,
+      "position": 639
+    },
+    {
+      "layer": 9,
+      "position": 2152
+    },
+    {
+      "layer": 9,
+      "position": 3426
+    },
+    {
+      "layer": 9,
+      "position": 4399
+    },
+    {
+      "layer": 11,
+      "position": 4497
+    },
+    {
+      "layer": 12,
+      "position": 378
+    },
+    {
+      "layer": 13,
+      "position": 2801
+    },
+    {
+      "layer": 13,
+      "position": 3329
+    },
+    {
+      "layer": 13,
+      "position": 5539
+    },
+    {
+      "layer": 15,
+      "position": 2987
+    },
+    {
+      "layer": 16,
+      "position": 3577
+    },
+    {
+      "layer": 16,
+      "position": 3771
+    },
+    {
+      "layer": 17,
+      "position": 182
+    },
+    {
+      "layer": 17,
+      "position": 2275
+    },
+    {
+      "layer": 18,
+      "position": 937
+    },
+    {
+      "layer": 18,
+      "position": 1254
+    },
+    {
+      "layer": 19,
+      "position": 4874
+    },
+    {
+      "layer": 19,
+      "position": 5607
+    },
+    {
+      "layer": 21,
+      "position": 4140
+    }
+  ]
+}
