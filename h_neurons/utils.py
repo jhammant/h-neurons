@@ -11,25 +11,35 @@ def log(msg):
 
 
 def load_triviaqa_questions(n=40):
-    """Load TriviaQA questions with answers."""
+    """Load TriviaQA questions with answers (streaming to avoid full download)."""
     from datasets import load_dataset
 
     log("Loading TriviaQA dataset...")
-    ds = load_dataset("trivia_qa", "rc", split="train", trust_remote_code=True)
+    # Try rc.nocontext first (often cached), fall back to rc
+    for config_name in ["rc.nocontext", "rc"]:
+        try:
+            ds = load_dataset("trivia_qa", config_name, split="train", streaming=True)
+            log(f"Using TriviaQA config: {config_name}")
+            break
+        except (ValueError, Exception):
+            continue
+    else:
+        raise RuntimeError("Could not load TriviaQA dataset (tried rc.nocontext and rc)")
 
-    indices = random.sample(range(len(ds)), min(n * 2, len(ds)))
-    questions = []
-    for i in indices:
-        item = ds[i]
+    # Collect a pool of candidates, then sample
+    pool = []
+    target_pool = n * 4  # gather extra to allow random sampling
+    for item in ds:
         answers = item["answer"]["aliases"]
         if answers and len(answers[0]) < 50:
-            questions.append({
+            pool.append({
                 "question": item["question"],
                 "answers": [a.lower().strip() for a in answers],
             })
-        if len(questions) >= n:
+        if len(pool) >= target_pool:
             break
 
+    questions = random.sample(pool, min(n, len(pool)))
     log(f"Loaded {len(questions)} TriviaQA questions")
     return questions
 
@@ -131,18 +141,34 @@ def _format_prompt(question, tokenizer, chat_template=None):
 
 
 def get_mlp_info(model):
-    """Discover MLP layer structure."""
-    info = {"layers": [], "total_neurons": 0}
+    """Discover MLP layer structure. Supports both gated (LLaMA) and standard (Phi) MLPs."""
+    info = {"layers": [], "total_neurons": 0, "mlp_type": None}
 
     for name, module in model.named_modules():
+        # Gated MLP (LLaMA, Mistral, Qwen, etc.)
         if hasattr(module, 'gate_proj') and hasattr(module, 'up_proj'):
             intermediate_size = module.up_proj.out_features
             info["layers"].append({
                 "name": name,
                 "module": module,
                 "intermediate_size": intermediate_size,
+                "mlp_type": "gated",
             })
             info["total_neurons"] += intermediate_size
+            if info["mlp_type"] is None:
+                info["mlp_type"] = "gated"
+        # Standard MLP (Phi-2, GPT-2, etc.)
+        elif hasattr(module, 'fc1') and hasattr(module, 'fc2'):
+            intermediate_size = module.fc1.out_features
+            info["layers"].append({
+                "name": name,
+                "module": module,
+                "intermediate_size": intermediate_size,
+                "mlp_type": "standard",
+            })
+            info["total_neurons"] += intermediate_size
+            if info["mlp_type"] is None:
+                info["mlp_type"] = "standard"
 
-    log(f"Found {len(info['layers'])} MLP layers, {info['total_neurons']:,} total neurons")
+    log(f"Found {len(info['layers'])} MLP layers ({info['mlp_type']}), {info['total_neurons']:,} total neurons")
     return info

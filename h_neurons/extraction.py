@@ -33,12 +33,15 @@ def extract_activations(model, tokenizer, data, mlp_info, device="cpu"):
         layer_activations = {}
         hooks = []
 
-        def make_hook(layer_idx):
+        def make_hook(layer_idx, mlp_type):
             def hook_fn(module, input, output):
                 x = input[0]
-                gate = module.gate_proj(x)
-                up = module.up_proj(x)
-                intermediate = torch.nn.functional.silu(gate) * up
+                if mlp_type == "gated":
+                    gate = module.gate_proj(x)
+                    up = module.up_proj(x)
+                    intermediate = torch.nn.functional.silu(gate) * up
+                else:  # standard MLP (Phi-2, etc.)
+                    intermediate = module.activation_fn(module.fc1(x))
                 resp_intermediate = intermediate[0, prompt_len:, :]
                 resp_output = output[0, prompt_len:, :]
 
@@ -54,7 +57,7 @@ def extract_activations(model, tokenizer, data, mlp_info, device="cpu"):
             return hook_fn
 
         for li, layer_info in enumerate(mlp_info["layers"]):
-            h = layer_info["module"].register_forward_hook(make_hook(li))
+            h = layer_info["module"].register_forward_hook(make_hook(li, layer_info["mlp_type"]))
             hooks.append(h)
 
         with torch.no_grad():
