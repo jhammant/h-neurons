@@ -1,0 +1,60 @@
+{
+  "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+  "timestamp": "2026-02-27T02:10:48.709251",
+  "timing": {
+    "model_load": 5.850118160247803,
+    "dataset": 473.4411427974701,
+    "extraction": 45.068219900131226,
+    "classifier": 3.136044979095459,
+    "intervention": 1.3113021850585938e-05,
+    "total": 527.6341862678528
+  },
+  "h_neurons": [],
+  "total_neurons": 123904,
+  "detection_accuracy": 0.5,
+  "classification_report": {
+    "0": {
+      "precision": 0.5,
+      "recall": 1.0,
+      "f1-score": 0.6666666666666666,
+      "support": 10.0
+    },
+    "1": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 10.0
+    },
+    "accuracy": 0.5,
+    "macro avg": {
+      "precision": 0.25,
+      "recall": 0.5,
+      "f1-score": 0.3333333333333333,
+      "support": 20.0
+    },
+    "weighted avg": {
+      "precision": 0.25,
+      "recall": 0.5,
+      "f1-score": 0.3333333333333333,
+      "support": 20.0
+    }
+  },
+  "num_examples": 100,
+  "intervention_results": {},
+  "config": {
+    "model": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+    "quantize": "none",
+    "device": "mps",
+    "samples": 200,
+    "responses_per_question": 8,
+    "temperature": 0.9,
+    "max_new_tokens": 100,
+    "classifier_C": 0.01,
+    "intervention_scale_suppress": 0.0,
+    "intervention_scale_amplify": 2.0,
+    "output": "results/tinyllama-mps-200",
+    "phase": "full",
+    "neurons": null,
+    "seed": 42
+  }
+}

@@ -68,14 +68,21 @@ def load_model(config):
 
     if quantize == "none":
         load_kwargs["torch_dtype"] = torch.float16
-        if device == "cpu":
+        if device == "mps":
+            # Load on CPU first, then move to MPS to avoid caching_allocator_warmup OOM
+            import os
+            os.environ["PYTORCH_MPS_HIGH_WATERMARK_RATIO"] = "0.0"
             load_kwargs["device_map"] = "cpu"
-        elif device == "mps":
-            load_kwargs["device_map"] = "mps"
+            log("Loading on CPU first, then moving to MPS...")
+        elif device == "cpu":
+            load_kwargs["device_map"] = "cpu"
         else:
             load_kwargs["device_map"] = "auto"
 
     model = AutoModelForCausalLM.from_pretrained(model_name, **load_kwargs)
+    if device == "mps":
+        log("Moving model to MPS...")
+        model = model.to("mps")
     model.eval()
 
     param_count = sum(p.numel() for p in model.parameters())

@@ -11,11 +11,24 @@ def log(msg):
 
 
 def load_triviaqa_questions(n=40):
-    """Load TriviaQA questions with answers."""
-    from datasets import load_dataset
+    """Load TriviaQA questions with answers. Uses local cache if available."""
+    import json
+    from pathlib import Path
 
-    log("Loading TriviaQA dataset...")
-    ds = load_dataset("trivia_qa", "rc", split="train", trust_remote_code=True)
+    # Try local cache first (no network needed)
+    cache_path = Path(__file__).parent.parent / "data" / "triviaqa_questions.json"
+    if cache_path.exists():
+        log(f"Loading TriviaQA from local cache: {cache_path}")
+        with open(cache_path) as f:
+            candidates = json.load(f)
+        questions = random.sample(candidates, min(n, len(candidates)))
+        log(f"Loaded {len(questions)} TriviaQA questions from cache")
+        return questions
+
+    # Fall back to HuggingFace download
+    from datasets import load_dataset
+    log("Loading TriviaQA dataset from HuggingFace...")
+    ds = load_dataset("trivia_qa", "rc.nocontext", split="train")
 
     indices = random.sample(range(len(ds)), min(n * 2, len(ds)))
     questions = []
