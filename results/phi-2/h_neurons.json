@@ -1,0 +1,245 @@
+{
+  "model": "microsoft/phi-2",
+  "total_neurons": 327680,
+  "h_neuron_count": 59,
+  "h_neuron_ratio": 0.0001800537109375,
+  "classifier_accuracy": 0.8,
+  "neurons": [
+    {
+      "layer": 5,
+      "position": 6992
+    },
+    {
+      "layer": 7,
+      "position": 1784
+    },
+    {
+      "layer": 8,
+      "position": 7264
+    },
+    {
+      "layer": 11,
+      "position": 2563
+    },
+    {
+      "layer": 11,
+      "position": 3217
+    },
+    {
+      "layer": 12,
+      "position": 1656
+    },
+    {
+      "layer": 12,
+      "position": 2979
+    },
+    {
+      "layer": 12,
+      "position": 3118
+    },
+    {
+      "layer": 13,
+      "position": 4851
+    },
+    {
+      "layer": 13,
+      "position": 6809
+    },
+    {
+      "layer": 13,
+      "position": 8700
+    },
+    {
+      "layer": 14,
+      "position": 7548
+    },
+    {
+      "layer": 15,
+      "position": 1785
+    },
+    {
+      "layer": 15,
+      "position": 4530
+    },
+    {
+      "layer": 16,
+      "position": 2036
+    },
+    {
+      "layer": 16,
+      "position": 3196
+    },
+    {
+      "layer": 18,
+      "position": 847
+    },
+    {
+      "layer": 18,
+      "position": 1413
+    },
+    {
+      "layer": 18,
+      "position": 3825
+    },
+    {
+      "layer": 18,
+      "position": 5276
+    },
+    {
+      "layer": 18,
+      "position": 6114
+    },
+    {
+      "layer": 18,
+      "position": 7580
+    },
+    {
+      "layer": 19,
+      "position": 1490
+    },
+    {
+      "layer": 19,
+      "position": 3780
+    },
+    {
+      "layer": 19,
+      "position": 5611
+    },
+    {
+      "layer": 20,
+      "position": 857
+    },
+    {
+      "layer": 20,
+      "position": 1567
+    },
+    {
+      "layer": 20,
+      "position": 4019
+    },
+    {
+      "layer": 21,
+      "position": 1700
+    },
+    {
+      "layer": 21,
+      "position": 5948
+    },
+    {
+      "layer": 21,
+      "position": 7443
+    },
+    {
+      "layer": 21,
+      "position": 7709
+    },
+    {
+      "layer": 21,
+      "position": 7756
+    },
+    {
+      "layer": 22,
+      "position": 3090
+    },
+    {
+      "layer": 22,
+      "position": 6364
+    },
+    {
+      "layer": 22,
+      "position": 7896
+    },
+    {
+      "layer": 22,
+      "position": 8974
+    },
+    {
+      "layer": 23,
+      "position": 1339
+    },
+    {
+      "layer": 23,
+      "position": 1700
+    },
+    {
+      "layer": 23,
+      "position": 1851
+    },
+    {
+      "layer": 23,
+      "position": 2041
+    },
+    {
+      "layer": 23,
+      "position": 2312
+    },
+    {
+      "layer": 23,
+      "position": 4460
+    },
+    {
+      "layer": 23,
+      "position": 7156
+    },
+    {
+      "layer": 23,
+      "position": 7647
+    },
+    {
+      "layer": 24,
+      "position": 2357
+    },
+    {
+      "layer": 24,
+      "position": 7842
+    },
+    {
+      "layer": 24,
+      "position": 10098
+    },
+    {
+      "layer": 25,
+      "position": 2643
+    },
+    {
+      "layer": 25,
+      "position": 6343
+    },
+    {
+      "layer": 26,
+      "position": 4672
+    },
+    {
+      "layer": 27,
+      "position": 1298
+    },
+    {
+      "layer": 27,
+      "position": 6783
+    },
+    {
+      "layer": 28,
+      "position": 8107
+    },
+    {
+      "layer": 29,
+      "position": 2567
+    },
+    {
+      "layer": 29,
+      "position": 4429
+    },
+    {
+      "layer": 30,
+      "position": 4528
+    },
+    {
+      "layer": 31,
+      "position": 3011
+    },
+    {
+      "layer": 31,
+      "position": 5020
+    }
+  ]
+}

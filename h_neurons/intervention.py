@@ -17,15 +17,18 @@ def create_intervention_hooks(mlp_info, h_neurons, mode="suppress", factor=2.0):
 
     hooks = []
 
-    def make_hook(positions, mode, factor):
+    def make_hook(positions, mode, factor, mlp_type):
         positions_tensor = None
 
         def hook_fn(module, input, output):
             nonlocal positions_tensor
             x = input[0]
-            gate = module.gate_proj(x)
-            up = module.up_proj(x)
-            intermediate = torch.nn.functional.silu(gate) * up
+            if mlp_type == "gated":
+                gate = module.gate_proj(x)
+                up = module.up_proj(x)
+                intermediate = torch.nn.functional.silu(gate) * up
+            else:  # standard MLP
+                intermediate = module.activation_fn(module.fc1(x))
 
             if positions_tensor is None:
                 positions_tensor = torch.tensor(positions, dtype=torch.long, device=intermediate.device)
@@ -35,7 +38,10 @@ def create_intervention_hooks(mlp_info, h_neurons, mode="suppress", factor=2.0):
             elif mode == "amplify":
                 intermediate[:, :, positions_tensor] *= factor
 
-            return module.down_proj(intermediate)
+            if mlp_type == "gated":
+                return module.down_proj(intermediate)
+            else:
+                return module.fc2(intermediate)
 
         return hook_fn
 
@@ -43,7 +49,7 @@ def create_intervention_hooks(mlp_info, h_neurons, mode="suppress", factor=2.0):
         if positions:
             layer_info = mlp_info["layers"][li]
             h = layer_info["module"].register_forward_hook(
-                make_hook(positions, mode, factor)
+                make_hook(positions, mode, factor, layer_info["mlp_type"])
             )
             hooks.append(h)
 
